@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+
+set -e
+command=$1
+
+Color_Off='\033[00m'
+Green='\033[0;32m'
+Red='\033[0;31m'
+
+function display_help {
+  echo 'to install dwait on host:'
+  echo -e "${Green}docker run --rm -v /:/hostroot jizhilong/dresponse install_dwait$Color_Off"
+  echo
+  echo 'to run dresponse in a docker container:'
+  echo -e "${Green}docker run -v /var/run/docker.sock:/var/run/docker.sock -v /var/run/dwait/:/var/run/dwait/ jizhilong/dresponse run_dresponse$Color_Off"
+}
+
+
+function install_dwait {
+  if ! [ -a /hostroot ]; then
+	echo -e "${Red}host's root file system not mounted!try the following command: $Color_Off"
+    echo -e "${Green}docker run --rm -v /:/hostroot jizhilong/dresponse install_dwait$Color_Off"
+	exit 1
+  else
+    cp -R /usr/lib/dwait/. /hostroot/usr/lib/dwait
+  fi
+}
+
+function run_dresponse {
+  if ! [ -a /var/run/docker.sock ]; then
+	echo -e "${Red}docker.sock not mounted, run the following command to run dresponse.$Color_Off"
+    echo -e "${Green}docker run -v /var/run/docker.sock:/var/run/docker.sock -v /var/run/dwait/:/var/run/dwait/ jizhilong/dresponse run_dresponse$Color_Off"
+	exit 1
+  fi
+
+  if ! [ -a /var/run/dwait]; then
+	echo -e "${Red}/var/run/dwait not existed, run the following command to run dresponse.$Color_Off"
+    echo -e "${Green}docker run -v /var/run/docker.sock:/var/run/docker.sock -v /var/run/dwait/:/var/run/dwait/ jizhilong/dresponse run_dresponse$Color_Off"
+	exit 1
+  fi
+  uwsgi --http-socket /var/run/dwait/dwait.sock -w dresponse.wsgi
+}
+
+
+case $command in
+run*)
+  run_dresponse
+  ;;
+install*)
+  install_dwait
+  ;;
+*)
+  display_help
+  ;;
+esac
