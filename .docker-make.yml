@@ -1,0 +1,16 @@
+builds:
+  dwait:
+    context: /dwait
+    dockerfile: Dockerfile
+    extract:
+        - /go/src/github.com/jizhilong/docker-wait/dwait/bin/.:bin.tar
+
+  dresponse:
+    context: /
+    dockerfile: dresponse/Dockerfile
+    pushes:
+        - 'on_branch:master=jizhilong/dresponse:latest'
+        - 'on_tag=jizhilong/dresponse:{git_tag}'
+    depends_on:
+      - dwait
+

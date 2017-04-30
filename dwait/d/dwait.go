@@ -115,7 +115,7 @@ func (container *ContainerId) RequestDresponse(path string) (resp *http.Response
 }
 
 func (container *ContainerId) GetExecInfo() (execinfo ExecInfo, err error) {
-	resp, err := container.RequestDresponse("/dwait")
+	resp, err := container.RequestDresponse("/init")
 	if err != nil {
 		return
 	}

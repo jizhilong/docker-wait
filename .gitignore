@@ -1,3 +1,4 @@
 *.swp
 dwait/bin/dwait
 *.pyc
+.venv
