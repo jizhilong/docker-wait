@@ -11,4 +11,4 @@ CMD ["uwsgi", "--http-socket", "/var/run/dresponse/dresponse.sock", "-w", "dresp
 ADD dresponse /usr/local/src/dresponse
 ADD dwait/bin.tar /usr/lib/dwait
 RUN pip install /usr/local/src/dresponse
-ENTRYPOINT /usr/local/src/dresponse/bin/entrypoint
+ENTRYPOINT ["/usr/local/src/dresponse/bin/entrypoint"]

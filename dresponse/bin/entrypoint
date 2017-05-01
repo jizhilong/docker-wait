@@ -29,15 +29,12 @@ function install_dwait {
 function run_dresponse {
   if ! [ -a /var/run/docker.sock ]; then
 	echo -e "${Red}docker.sock not mounted, run the following command to run dresponse.$Color_Off"
-    echo -e "${Green}docker run -v /var/run/docker.sock:/var/run/docker.sock -v /var/run/dwait/:/var/run/dwait/ jizhilong/dresponse run_dresponse$Color_Off"
+    echo -e "${Green}docker run -v /var/run:/var/run jizhilong/dresponse run_dresponse$Color_Off"
 	exit 1
   fi
 
-  if ! [ -a /var/run/dwait]; then
-	echo -e "${Red}/var/run/dwait not existed, run the following command to run dresponse.$Color_Off"
-    echo -e "${Green}docker run -v /var/run/docker.sock:/var/run/docker.sock -v /var/run/dwait/:/var/run/dwait/ jizhilong/dresponse run_dresponse$Color_Off"
-	exit 1
-  fi
+  mkdir -p /var/run/dwait
+
   uwsgi --http-socket /var/run/dwait/dwait.sock -w dresponse.wsgi
 }
 
