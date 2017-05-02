@@ -16,7 +16,7 @@ LOG = logging.getLogger('dresponse')
 def get_app():
     app = flask.Flask('dresponse')
     app.docker = docker.from_env()
-    app.handlers = handler.get_handlers()
+    app.handlers = handler.get_handlers(app)
     app.secret_key = 'secret_key'
     return app
 
