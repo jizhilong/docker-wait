@@ -13,11 +13,20 @@ from dresponse import handler
 LOG = logging.getLogger('dresponse')
 
 
+def is_running_in_container():
+    return os.environ.get('INCONTAINER', '0') == '1'
+
+
 def get_app():
     app = flask.Flask('dresponse')
     app.docker = docker.from_env()
     app.handlers = handler.get_handlers(app)
     app.secret_key = 'secret_key'
+    app.in_container = is_running_in_container()
+    if app.in_container:
+        app.hostroot = '/hostroot'
+    else:
+        app.hostroot = '/'
     return app
 
 
@@ -38,7 +47,7 @@ def make_netns_symlink(pid, name):
     netns_dir = '/var/run/netns'
     if not os.path.exists(netns_dir):
         os.makedirs(netns_dir, mode=0755)
-    source = os.path.join('/proc', str(pid), 'ns', 'net')
+    source = os.path.join(app.hostroot, 'proc', str(pid), 'ns', 'net')
     dest = os.path.join(netns_dir, name)
     os.symlink(source, dest)
 
@@ -65,19 +74,19 @@ def init():
     command = container.attrs['Config']['Cmd'] or image.attrs['Config']['Cmd']
 
     pid = container.attrs['State']['Pid']
-    root = os.path.join('/proc', str(pid), 'root')
+    root = os.path.join(app.hostroot, 'proc', str(pid), 'root')
     make_netns_symlink(pid, container.id)
 
-    for handler in app.handlers:
-        try:
-            handler.handle(root, container.id,
-                           container.attrs,
-                           image.attrs)
-        except Exception as e:
-            LOG.exception('failed to run handler')
-            raise e
-        finally:
-            destroy_netns_symlink(container.id)
+    try:
+        for handler in app.handlers:
+                handler.handle(root, container.id,
+                               container.attrs,
+                               image.attrs)
+    except Exception as e:
+        LOG.exception('failed to run handler')
+        raise e
+    finally:
+        destroy_netns_symlink(container.id)
 
     return flask.jsonify({'entrypoint': entrypoint, 'command': command,
                           'token': calculate_auth_token(container_id)})
