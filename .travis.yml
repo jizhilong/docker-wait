@@ -1,0 +1,8 @@
+sudo: required
+language: python
+services:
+    - docker
+before_install:
+  - pip install docker-make
+script:
+  - docker-make -d --no-push
