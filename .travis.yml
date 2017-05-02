@@ -1,8 +1,13 @@
 sudo: required
 language: python
 services:
-    - docker
+- docker
 before_install:
-  - pip install docker-make
+- pip install docker-make
+- docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
 script:
-  - docker-make -d --no-push
+- docker-make -d
+env:
+  global:
+  - secure: xnQeJ+/lu4j/G5Eq3qD4qgI0dtGbiHuaqc70TfqiW+ZDEyIngvuSZrLyPtIr94pJN/Aj3BOF/OysKFSHstfdV9L/L/OEb8sHKpZP7YwwgB7KFrWFI4wULxpz3cjLmU0bV95/qS4VRZ5fYlTIhTo2MU6d7X3C3nvQGexOXgGt8gtoShuTETovSZjD0OoE4SOC9CdmPgXrWh459dGdVJMDoidXY8nCOihnAuSEJZMz8IDtSVuZpYegpUUl8PpUVrkgShSK/AX6goZqQzf3k8xkkJiYLeDohRwgwM5nni0nJ6dmSMRMWw8Mm17g/q0OHvwltrASqC+pPC7jA7eFoA9OsmUX16zre0a4/j9KNmNlVgIVn55VLpI847qKqSqLFSJNnTSsk3I66WOErl3tr3HLxTRdIDV2d20/9A7JSiF+BfP4/ZkcsWZUFj6/yXyZ/e1QLk2f2qplz6XKb97s0IlYnqXicCFBTTPB9M2KitnSysdChNpMqmVSkvrwIkU1qoVUw74rmf/PgnmtmcwhpCGjq1qyJe+W4YGmT6jXNDUrw0wYnO0rX+T+lRw4dYuCIQ3GDtMry+7jwkAC01Tfx4h4YFaLvwNNN5M03LtHk8ZSRF4x9e5Vq1HKUpsTfi0ESNCy55hny/mhgb1tqemCIBppofXGRDT+lbPwmLnZxdEocCE=
+  - secure: du44dPceX1Gf49n1+uVg9yKcD3k5If9LrWv12DstdCm1bhFF1Dy5HI7/TJk0k8IdbpqRDoc0AbFxTKq1ku88HNV1t+i/wnyCQvHVK/TRLy/IWFdac4sfwEtgQZOWqxMoVOsxT7YxsKfehid0MnRfiyHr7sIfbT2StjXx1xRk5yusGrIkrPYHC+t3AmmTFFU0O4SoC0wU8JZYTybt6mqf2pTOJg8rIkHdKNB1n/Bl+EXT4wKvUzpxmsl2UZYBnlTNreHrzgx6jK9b/SZFyaRe6tpjAKogVZ+YzTH7qspsX7l58pNTggew2oSSOQYmdt7IHHCQ8PkJQuA9GD+NzgN5DJ3pirBD557PMV8qZP7snUqNbaywFw50PyJvj4Q8IKog9Meyj08FcjjDMXwOp1A4TZQ/5q8rEZL3sO1DsDNnK1bM6Q//Y407iP9+ZO9PwQ30kF0JHs4bjivf/rkWVUItTECEfXTRLXV4p12lrwYaXZQaKv/PwdR+wm9AjOvMHw25BHug5gkfYJ5PAOtGi5QCsuMq36zI4Q6KIJMFVbC1Y+drZpru6ru3azqqD8qmXMd/EsKVuOuBOvWL5kSC/oWS4MBNjkZu0akub7YM/CN9kbhmFhIJJ1VoRh8Qdzlt96u256aQbHuclRpRgTG/T49bAQxu2B6hjVK7IIqy5v+4kfo=
