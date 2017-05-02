@@ -9,8 +9,7 @@ builds:
     context: /
     dockerfile: dresponse/Dockerfile
     pushes:
-        - 'on_branch:master=jizhilong/dresponse:latest'
-        - 'on_tag=jizhilong/dresponse:{git_tag}'
+        - 'on_branch:master=jizhilong/docker-wait:latest'
+        - 'on_tag=jizhilong/docker-wait:{git_tag}'
     depends_on:
       - dwait
-
