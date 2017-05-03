@@ -9,7 +9,7 @@ Color_Off='\033[00m'
 Green='\033[0;32m'
 Red='\033[0;31m'
 
-if grep docker /proc/self/cgroup; then
+if grep docker /proc/self/cgroup > /dev/null; then
   export INCONTAINER=1
 fi
 

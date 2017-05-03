@@ -9,6 +9,6 @@ you will see the output of both two containers and the output of `docker-compose
 [output.md](output.md)
 
 # how this example works?
-1. a bash script `test.sh` is added to the customized dresponse image, which will echo 'hello, world' to path `/tmp/hello`
-inside each dwait container.
+1. 4 scirpts are added to the customized dresponse image, which will be executed by the dresponse app before each container's 
+image entrypoint/cmd starts.
 2. both the dresponse and the dwait container are managed by the `docker-compose.yml`.

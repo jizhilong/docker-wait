@@ -82,8 +82,8 @@ def get_handlers(flask_app):
 
     for string in specified:
         module_name, class_name = string.split(':')
-        module = importlib.import_module(module)
-        cls = getattr(module_name, class_name)
+        module = importlib.import_module(module_name)
+        cls = getattr(module, class_name)
         handlers.append(cls(flask_app))
 
     return handlers
