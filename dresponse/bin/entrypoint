@@ -39,6 +39,10 @@ function run_dresponse {
 	exit 1
   fi
 
+  if [ $INCONTAINER == "1" ] && [ -a /hostroot ] && ! [ -a /hostroot/usr/lib/dwait ]; then
+	install_dwait
+  fi
+
   mkdir -p /var/run/dwait
 
   uwsgi --http-socket /var/run/dwait/dwait.sock -w dresponse.wsgi
