@@ -11,7 +11,7 @@ services:
 
   normal-container:
     image: busybox
-    command: cat /tmp/hello
+    command: "true"
     entrypoint: /d/init
     volumes:
       - /usr/lib/dwait:/d:ro
