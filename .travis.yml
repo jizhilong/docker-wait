@@ -3,10 +3,14 @@ language: python
 services:
 - docker
 before_install:
+- curl -L https://github.com/docker/compose/releases/download/1.12.0/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+- chmod +x /usr/local/bin/docker-compose
 - pip install docker-make
 - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
 script:
 - docker-make
+after_success:
+- ./utils/run-examples.sh
 env:
   global:
   - secure: xnQeJ+/lu4j/G5Eq3qD4qgI0dtGbiHuaqc70TfqiW+ZDEyIngvuSZrLyPtIr94pJN/Aj3BOF/OysKFSHstfdV9L/L/OEb8sHKpZP7YwwgB7KFrWFI4wULxpz3cjLmU0bV95/qS4VRZ5fYlTIhTo2MU6d7X3C3nvQGexOXgGt8gtoShuTETovSZjD0OoE4SOC9CdmPgXrWh459dGdVJMDoidXY8nCOihnAuSEJZMz8IDtSVuZpYegpUUl8PpUVrkgShSK/AX6goZqQzf3k8xkkJiYLeDohRwgwM5nni0nJ6dmSMRMWw8Mm17g/q0OHvwltrASqC+pPC7jA7eFoA9OsmUX16zre0a4/j9KNmNlVgIVn55VLpI847qKqSqLFSJNnTSsk3I66WOErl3tr3HLxTRdIDV2d20/9A7JSiF+BfP4/ZkcsWZUFj6/yXyZ/e1QLk2f2qplz6XKb97s0IlYnqXicCFBTTPB9M2KitnSysdChNpMqmVSkvrwIkU1qoVUw74rmf/PgnmtmcwhpCGjq1qyJe+W4YGmT6jXNDUrw0wYnO0rX+T+lRw4dYuCIQ3GDtMry+7jwkAC01Tfx4h4YFaLvwNNN5M03LtHk8ZSRF4x9e5Vq1HKUpsTfi0ESNCy55hny/mhgb1tqemCIBppofXGRDT+lbPwmLnZxdEocCE=
