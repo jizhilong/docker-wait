@@ -1,0 +1,20 @@
+version: "2"
+services:
+  dresponse:
+    build: .
+    privileged: true
+    command: run_dresponse
+    network_mode: host
+    volumes:
+      - /var/run:/var/run
+      - /:/hostroot
+
+  normal-container:
+    image: busybox
+    command: ls /
+    entrypoint: /d/init
+    volumes:
+      - /usr/lib/dwait:/d:ro
+      - /var/run/dwait:/.dwait:ro
+    depends_on:
+      - dresponse
