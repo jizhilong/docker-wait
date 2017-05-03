@@ -22,7 +22,7 @@ def get_app():
                       instance_relative_config=True)
     app.config.from_pyfile('dresponse.cfg', silent=True)
     app.secret_key = app.secret_key or ''
-    app.docker = docker.from_env()
+    app.docker = docker.from_env(version='auto')
     app.handlers = handler.get_handlers(app)
     app.in_container = is_running_in_container()
     if app.in_container:
