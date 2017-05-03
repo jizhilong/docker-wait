@@ -18,10 +18,11 @@ def is_running_in_container():
 
 
 def get_app():
-    app = flask.Flask('dresponse')
+    app = flask.Flask('dresponse', instance_path='/etc/docker_wait',
+                      instance_relative_config=True)
+    app.config.from_pyfile('dresponse.cfg', silent=True)
     app.docker = docker.from_env()
     app.handlers = handler.get_handlers(app)
-    app.secret_key = 'secret_key'
     app.in_container = is_running_in_container()
     if app.in_container:
         app.hostroot = '/hostroot'

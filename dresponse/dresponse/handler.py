@@ -1,6 +1,7 @@
 import os
 import logging
 import subprocess
+import importlib
 
 
 LOG = logging.getLogger(__name__)
@@ -19,7 +20,7 @@ class DummyHandler(BaseDresponseHandler):
 
 
 class RunScriptsHandler(BaseDresponseHandler):
-    DEFAULT_DRESPONSE_SCRIPTS_DIR = '/var/lib/dresponse/pre_start'
+    DEFAULT_DRESPONSE_SCRIPTS_DIR = '/var/lib/docker-wait/prestart'
 
     def handle(self, root, netns, container_attrs, image_attrs):
         scripts = self.collect_scripts()
@@ -72,5 +73,17 @@ class RunScriptsHandler(BaseDresponseHandler):
 
 
 def get_handlers(flask_app):
-    return [DummyHandler(flask_app),
-            RunScriptsHandler(flask_app)]
+    handlers = []
+    specified = flask_app.config.get('DRESPONSE_HANDLERS',
+                                     [
+                                      'dresponse.handler:DummyHandler',
+                                      'dresponse.handler:RunScriptsHandler',
+                                     ])
+
+    for string in specified:
+        module_name, class_name = string.split(':')
+        module = importlib.import_module(module)
+        cls = getattr(module_name, class_name)
+        handlers.append(cls(flask_app))
+
+    return handlers
