@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set -ex
 
+docker run --rm -v /:/hostroot jizhilong/docker-wait install_dwait
+
 cd examples
 
 for subdir in `ls`; do
