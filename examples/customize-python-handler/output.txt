@@ -1,0 +1,68 @@
+Building dresponse
+Step 1 : FROM jizhilong/docker-wait
+ ---> 6881b77b73dd
+Step 2 : ADD dresponse.cfg /etc/docker_wait/dresponse.cfg
+ ---> Using cache
+ ---> 0c9815fe8d89
+Step 3 : ADD myhandler /usr/local/lib/python2.7/site-packages/myhandler
+ ---> Using cache
+ ---> 6dc1b4a5e0a5
+Successfully built 6dc1b4a5e0a5
+Recreating customizepythonhandler_dresponse_1
+Recreating customizepythonhandler_normal-container_1
+Attaching to customizepythonhandler_dresponse_1, customizepythonhandler_normal-container_1
+[36mdresponse_1         |[0m *** Starting uWSGI 2.0.15 (64bit) on [Thu May  4 03:23:01 2017] ***
+[36mdresponse_1         |[0m compiled with version: 4.9.2 on 03 May 2017 15:14:21
+[36mdresponse_1         |[0m os: Linux-3.13.0-45-generic #74-Ubuntu SMP Tue Jan 13 19:36:28 UTC 2015
+[36mdresponse_1         |[0m nodename: jzl-dev005
+[36mdresponse_1         |[0m machine: x86_64
+[36mdresponse_1         |[0m clock source: unix
+[36mdresponse_1         |[0m pcre jit disabled
+[36mdresponse_1         |[0m detected number of CPU cores: 2
+[36mdresponse_1         |[0m current working directory: /
+[36mdresponse_1         |[0m detected binary path: /usr/local/bin/uwsgi
+[36mdresponse_1         |[0m uWSGI running as root, you can use --uid/--gid/--chroot options
+[36mdresponse_1         |[0m *** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+[36mdresponse_1         |[0m *** WARNING: you are running uWSGI without its master process manager ***
+[36mdresponse_1         |[0m your processes number limit is 524288
+[36mdresponse_1         |[0m your memory page size is 4096 bytes
+[36mdresponse_1         |[0m detected max file descriptor number: 524288
+[36mdresponse_1         |[0m lock engine: pthread robust mutexes
+[36mdresponse_1         |[0m thunder lock: disabled (you can enable it with --thunder-lock)
+[36mdresponse_1         |[0m uwsgi socket 0 bound to UNIX address /var/run/dwait/dwait.sock fd 3
+[36mdresponse_1         |[0m Python version: 2.7.13 (default, May  1 2017, 22:44:36)  [GCC 4.9.2]
+[36mdresponse_1         |[0m *** Python threads support is disabled. You can enable it with --enable-threads ***
+[36mdresponse_1         |[0m Python main interpreter initialized at 0x11d22b0
+[36mdresponse_1         |[0m your server socket listen backlog is limited to 100 connections
+[36mdresponse_1         |[0m your mercy for graceful operations on workers is 60 seconds
+[36mdresponse_1         |[0m mapped 72768 bytes (71 KB) for 1 cores
+[36mdresponse_1         |[0m *** Operational MODE: single process ***
+[36mdresponse_1         |[0m WSGI app 0 (mountpoint='') ready in 0 seconds on interpreter 0x11d22b0 pid: 9 (default app)
+[36mdresponse_1         |[0m *** uWSGI is running in multiple interpreter mode ***
+[36mdresponse_1         |[0m spawned uWSGI worker 1 (and the only) (pid: 9, cores: 1)
+[36mdresponse_1         |[0m there are 6 labels for container /customizepythonhandler_normal-container_1:
+[36mdresponse_1         |[0m com.docker.compose.service
+[36mdresponse_1         |[0m com.docker.compose.config-hash
+[36mdresponse_1         |[0m com.docker.compose.project
+[36mdresponse_1         |[0m com.docker.compose.version
+[36mdresponse_1         |[0m com.docker.compose.oneoff
+[36mdresponse_1         |[0m com.docker.compose.container-number
+[33mnormal-container_1  |[0m entrypoint: []
+[33mnormal-container_1  |[0m command: [ls /]
+[33mnormal-container_1  |[0m argv: [ls /]
+[33mnormal-container_1  |[0m path: /bin/ls
+[36mdresponse_1         |[0m [pid: 9|app: 0|req: 1/1] 0.0.0.0 () {28 vars in 313 bytes} [Thu May  4 03:23:01 2017] POST /init => generated 143 bytes in 10 msecs (HTTP/1.1 200) 2 headers in 72 bytes (2 switches on core 0)
+[33mnormal-container_1  |[0m bin
+[33mnormal-container_1  |[0m d
+[33mnormal-container_1  |[0m dev
+[33mnormal-container_1  |[0m etc
+[33mnormal-container_1  |[0m home
+[33mnormal-container_1  |[0m proc
+[33mnormal-container_1  |[0m root
+[33mnormal-container_1  |[0m sys
+[33mnormal-container_1  |[0m tmp
+[33mnormal-container_1  |[0m usr
+[33mnormal-container_1  |[0m var
+[33mcustomizepythonhandler_normal-container_1 exited with code 0
+[0mStopping customizepythonhandler_dresponse_1 ... 
+[1A[2KStopping customizepythonhandler_dresponse_1 ... done[1BAborting on container exit...
