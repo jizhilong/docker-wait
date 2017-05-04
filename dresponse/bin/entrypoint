@@ -39,7 +39,7 @@ function run_dresponse {
 	exit 1
   fi
 
-  if [ $INCONTAINER == "1" ] && [ -a /hostroot ] && ! [ -a /hostroot/usr/lib/dwait ]; then
+  if [ $INCONTAINER == "1" ] && [ -a /hostroot ] && ! [ -a /hostroot/usr/lib/dwait/dwait ]; then
 	install_dwait
   fi
 
