@@ -34,7 +34,7 @@ class RunScriptsHandler(BaseDresponseHandler):
                                         self.DEFAULT_DRESPONSE_SCRIPTS_DIR)
         scripts = []
         if not os.path.exists(directory):
-            LOG.warn('%s not existed!', drectory)
+            LOG.warn('%s not existed!', directory)
             return scripts
 
         if not os.path.isdir(directory):
